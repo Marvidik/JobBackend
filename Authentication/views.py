@@ -36,3 +36,11 @@ class RegistrationView(CreateAPIView):
             },
             status=status.HTTP_201_CREATED,
         )
+
+from rest_framework.generics import ListAPIView
+from django.contrib.auth.models import User  # Import the User model
+
+class UserListView(ListAPIView):
+    queryset = User.objects.all()  # Queryset to retrieve all users
+    serializer_class = UserSerializer  # Serializer to serialize user data
+   
