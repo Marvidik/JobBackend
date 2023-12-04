@@ -1,46 +1,35 @@
-from django.contrib.auth import login
-
-from rest_framework import permissions
-from rest_framework.authtoken.serializers import AuthTokenSerializer
-from knox.views import LoginView as KnoxLoginView
-from .serializer import UserSerializer
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView
-from knox.models import AuthToken
 
-class LoginView(KnoxLoginView):
-    permission_classes = (permissions.AllowAny,)
-
-    def post(self, request, format=None):
-        serializer = AuthTokenSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        login(request, user)
-        return super(LoginView, self).post(request, format=None) 
+from .serializer import UserSerializer
 
 
-class RegistrationView(CreateAPIView):
-    serializer_class = UserSerializer
+@api_view(['POST'])
+def login(request):
+    user=get_object_or_404(User,username=request.data['username'])
+    if not user.check_password(request.data['password']):
+        return Response({"dtails":"Info Not Found"})
+    token,created=Token.objects.get_or_create(user=user)
+    serializer=UserSerializer(instance=user)
+    return Response({"token":token.key,"user":serializer.data})
+  
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        _, token = AuthToken.objects.create(user)
-        return Response(
-            {
-                "user": UserSerializer(user, context=self.get_serializer_context()).data,
-                "token": token,
-            },
-            status=status.HTTP_201_CREATED,
-        )
+@api_view(['POST'])
+def register(request):
+    serializer=UserSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        user=User.objects.get(username=request.data['username'])
+        user.set_password(request.data['password'])
+        user.save()
+        token=Token.objects.create(user=user)
+        return Response({"token":token.key,"user":serializer.data})
+    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
-from rest_framework.generics import ListAPIView
-from django.contrib.auth.models import User  # Import the User model
-
-class UserListView(ListAPIView):
-    queryset = User.objects.all()  # Queryset to retrieve all users
-    serializer_class = UserSerializer  # Serializer to serialize user data
-   
+@api_view(['POST'])
+def test(request):
+    return Response({})
