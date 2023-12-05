@@ -5,7 +5,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .serializer import UserSerializer
+from .serializer import JobsSerializer, UserSerializer
 
 
 @api_view(['POST'])
@@ -33,3 +33,8 @@ def register(request):
 @api_view(['POST'])
 def test(request):
     return Response({})
+
+
+@api_view(['GET'])
+def jobs(request):
+    pass
