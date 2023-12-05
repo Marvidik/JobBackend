@@ -34,7 +34,7 @@ def register(request):
 def test(request):
     return Response({})
 
-
+# Api for listing the jobs appears here 
 @api_view(['GET'])
 def jobs(request):
     pass
