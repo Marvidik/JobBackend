@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .models import Jobs
 
 from .serializer import JobsSerializer, UserSerializer
 
@@ -35,6 +36,14 @@ def test(request):
     return Response({})
 
 # Api for listing the jobs appears here 
-@api_view(['GET'])
+@api_view(['POST',"GET"])
 def jobs(request):
-    pass
+    
+    job=Jobs.objects.get()
+
+    
+    serializer=JobsSerializer(instance=job)
+
+    return Response({"jobs":serializer.data})
+ 
+
