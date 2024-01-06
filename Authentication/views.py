@@ -40,8 +40,6 @@ def test(request):
 def jobs(request):
     
     job=Jobs.objects.get()
-
-    
     serializer=JobsSerializer(instance=job)
 
     return Response({"jobs":serializer.data})

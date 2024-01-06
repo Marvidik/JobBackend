@@ -11,6 +11,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class JobsSerializer(serializers.ModelSerializer):
-    class Meta(object):
-        model:Jobs
-        fields=('jobtitle','location','company','companylogo','date')
+    class Meta:
+        model = Jobs  # Specify the model associated with the serializer
+        fields = '__all__'
