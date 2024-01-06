@@ -36,12 +36,12 @@ def test(request):
     return Response({})
 
 # Api for listing the jobs appears here 
-@api_view(['POST',"GET"])
+@api_view(["GET"])
 def jobs(request):
     
-    job=Jobs.objects.get()
-    serializer=JobsSerializer(instance=job)
+    job=Jobs.objects.all()
+    serializer=JobsSerializer(instance=job, many=True)
 
     return Response({"jobs":serializer.data})
- 
+
 
