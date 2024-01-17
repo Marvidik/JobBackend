@@ -46,12 +46,21 @@ def jobs(request):
         return Response({"jobs":serializer.data})
     
     if request.method=="POST":
-        data=request.data 
-        print(data)
+        serializer=JobsSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+        return Response({"job":serializer.data})
 
     if request.method=="PUT":
-        data=request.data 
-        print(data)
+        obj=serializer.request.data["id"]
+        serializer=JobsSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+        return Response({"job":serializer.data})
 
     else:
 

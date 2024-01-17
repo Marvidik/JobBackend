@@ -7,6 +7,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('login',views.login),
     re_path('signup',views.register),
-    re_path("jobs/", views.jobs,name="all_jobs")
+    re_path("jobs", views.jobs,name="all_jobs")
     
 ]
