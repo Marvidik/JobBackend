@@ -1,6 +1,9 @@
 from bs4 import BeautifulSoup
 from requests import get
 
+
+# For Scrapping the Neccesary Jobs online
+
 url =get("https://weworkremotely.com/")
 
 
