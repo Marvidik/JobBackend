@@ -6,6 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('login',views.login, name="login"),
     re_path('signup',views.register,name="register"),
-    re_path("jobs", views.jobs,name="all_jobs")
+    path('password/reset/', views.password_reset, name='password_reset'),
+    # re_path("jobs", views.jobs,name="all_jobs")
     
 ]

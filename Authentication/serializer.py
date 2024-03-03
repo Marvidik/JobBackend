@@ -15,3 +15,11 @@ class JobsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Jobs  # Specify the model associated with the serializer
         fields = '__all__'
+
+
+class ResetPasswordEmailSerializer(serializers.Serializer):
+    email=serializers.EmailField(min_length=2)
+
+    class Meta:
+        fields=["email"]
+
