@@ -134,5 +134,6 @@ EMAIL_PORT = 465
 #EMAIL_USE_TLS = True
 EMAIL_USE_SSL=True
 EMAIL_HOST_USER = 'ebubeidika@gmail.com'
-EMAIL_HOST_PASSWORD = 'vmcy dbwq wihb fhxy'  # You need to replace 'your_gmail_password' with your actual Gmail account password
+EMAIL_HOST_PASSWORD = 'sdjbhbhvbhv bvh h h'  # You need to replace 'your_gmail_password' with your actual Gmail account password
 DEFAULT_FROM_EMAIL = 'ebubeidika@gmail.com'
+nothing="vmcy dbwq wihb fhxy"
