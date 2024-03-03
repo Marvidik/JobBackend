@@ -31,9 +31,7 @@ def register(request):
         return Response({"token":token.key,"user":serializer.data})
     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
-def test(request):
-    return Response({})
+
 
 # Api for listing the jobs appears here 
 @api_view(["GET","POST","PUT","DELETE"])
@@ -63,7 +61,6 @@ def jobs(request):
         return Response({"job":serializer.data})
 
     else:
-
         pass
 
 

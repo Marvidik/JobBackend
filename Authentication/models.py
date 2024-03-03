@@ -9,3 +9,8 @@ class Jobs(models.Model):
     company=models.CharField(max_length=100)
     companylogo=models.URLField()
     date=models.CharField(max_length=100)
+
+
+
+class Profile(models.Model):
+    pass
