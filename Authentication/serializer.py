@@ -23,3 +23,17 @@ class ResetPasswordEmailSerializer(serializers.Serializer):
     class Meta:
         fields=["email"]
 
+
+class PasswordResetConfirmSerializer(serializers.Serializer):
+    password = serializers.CharField(max_length=128)
+    confirm_password = serializers.CharField(max_length=128)
+
+    def validate(self, data):
+        password = data.get('password')
+        confirm_password = data.get('confirm_password')
+
+        # Check if passwords match
+        if password != confirm_password:
+            raise serializers.ValidationError("Passwords do not match")
+
+        return data
