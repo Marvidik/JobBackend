@@ -73,12 +73,13 @@ def password_reset(request):
 
         send_mail(subject, message, from_email, recipient_list)
 
-        # Here you can add logic to save the token and timestamp
-        # associated with the user in the database if needed
+        # Optionally save the token and timestamp associated with the user
+        # You can add logic here to save them in the database if needed
 
         return Response({'message': 'Password reset email sent'}, status=status.HTTP_200_OK)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 
@@ -89,7 +90,6 @@ from django.contrib.auth.tokens import default_token_generator
 
 @api_view(['POST'])
 def password_reset_confirm(request, uidb64, token):
-    print("I dont give a fuck about this stupid function")
     UserModel = get_user_model()
     try:
         # Decode the UID from URL-safe string
