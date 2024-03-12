@@ -4,9 +4,9 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Jobs
 
-from .serializer import JobsSerializer, UserSerializer,ResetPasswordEmailSerializer,PasswordResetConfirmSerializer
+from .models import UserProfile
+from .serializer import UserSerializer,ResetPasswordEmailSerializer,PasswordResetConfirmSerializer,ProfileSerializer
 
 from django.core.mail import send_mail
 from django.utils import timezone
@@ -109,3 +109,33 @@ def password_reset_confirm(request, uidb64, token):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
         raise Http404('Invalid token or user does not exist')
+    
+
+@api_view(['POST'])
+def profile_add(request):
+    serializer = ProfileSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'profile': serializer.data}, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(["GET"])
+def profile_get(request):
+    profiles = UserProfile.objects.all()
+    serializer = ProfileSerializer(profiles, many=True)
+    return Response({'profiles': serializer.data}, status=status.HTTP_200_OK)
+
+
+@api_view(["PUT"])
+def profile_update(request):
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        return Response({'error': 'Profile does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    
+    serializer = ProfileSerializer(profile, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'profile': serializer.data}, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

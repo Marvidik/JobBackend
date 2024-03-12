@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Jobs
+from .models import UserProfile
 
 # Register your models here.
 
 
-admin.site.register(Jobs)
+
+admin.site.register(UserProfile)
