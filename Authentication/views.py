@@ -17,7 +17,15 @@ from django.contrib.auth import get_user_model, views as auth_views
 from django.http import HttpResponseBadRequest
 from django.shortcuts import redirect,render
 
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.urls import reverse
 
+
+# from django.utils.http import urlsafe_base64_decode
+# from django.http import Http404
+
+# from django.contrib.auth.tokens import default_token_generator
 
 
 @api_view(['POST'])
@@ -42,9 +50,6 @@ def register(request):
         return Response({"token":token.key,"user":serializer.data})
     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-from django.urls import reverse
 
 @api_view(['POST'])
 def password_reset(request):
@@ -83,33 +88,14 @@ def password_reset(request):
 
 
 
-from django.utils.http import urlsafe_base64_decode
-from django.http import Http404
 
-from django.contrib.auth.tokens import default_token_generator
 
 @api_view(['POST'])
-def password_reset_confirm(request, uidb64, token):
-    UserModel = get_user_model()
-    try:
-        # Decode the UID from URL-safe string
-        uid = urlsafe_base64_decode(uidb64).decode()
-        user = UserModel._default_manager.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist, UnicodeDecodeError):
-        user = None
+def password_reset_confirm(request):
+    serializer=PasswordResetConfirmSerializer(data=request.data)
 
-    if user is not None and default_token_generator.check_token(user, token):
-        serializer = PasswordResetConfirmSerializer(data=request.data)
-        if serializer.is_valid():
-            # Update user's password
-            user.set_password(serializer.validated_data['password'])
-            user.save()
-            return Response({'message': 'Password reset successful'}, status=status.HTTP_200_OK)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        raise Http404('Invalid token or user does not exist')
-    
+    if serializer.is_valid():
+        pass
 
 @api_view(['POST'])
 def profile_add(request):
