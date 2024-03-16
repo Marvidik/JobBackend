@@ -21,7 +21,6 @@ class ResetPasswordEmailSerializer(serializers.Serializer):
 class PasswordResetConfirmSerializer(serializers.Serializer):
     password = serializers.CharField(max_length=128)
     confirm_password = serializers.CharField(max_length=128)
-    token=serializers.CharField(max_length=150)
 
     def validate(self, data):
         password = data.get('password')
