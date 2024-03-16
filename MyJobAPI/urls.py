@@ -9,9 +9,4 @@ urlpatterns = [
     path('password/reset/', views.password_reset, name='password_reset'),
     path('password/reset/<uidb64>/<token>/', views.password_reset_confirm, name='password_reset_confirm'),
     
-
-    path('create-profile/',views.profile_add,name="profile"),
-    path('get_profile/',views.profile_get,name="get_profile"),
-
-    
 ]
