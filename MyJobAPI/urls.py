@@ -7,7 +7,7 @@ urlpatterns = [
     path('login/',views.login, name="login"),
     path('signup/',views.register,name="register"),
     path('password/reset/', views.password_reset, name='password_reset'),
-    path('password/reset/<str:uidb64>/<str:token>/', views.password_reset_confirm, name='password_reset_confirm'),
+    path('password/reset/<uidb64>/<token>/', views.password_reset_confirm, name='password_reset_confirm'),
     
 
     path('create-profile/',views.profile_add,name="profile"),

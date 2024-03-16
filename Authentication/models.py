@@ -29,3 +29,19 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
+    
+class PasswordResetToken(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    token = models.CharField(max_length=255)
+    timestamp = models.IntegerField()  # Stores timestamp in seconds
+
+    def __str__(self):
+        return f"{self.user} - {self.token[:10]}"  # Truncate token for display
+
+    def is_valid(self):
+        # You can define your own logic for token expiration here
+        # For example, check if current time - timestamp is less than a specific duration (e.g., 24 hours)
+        # expiration_time = settings.PASSWORD_RESET_TOKEN_EXPIRATION_SECONDS
+        # return (int(time.time()) - self.timestamp) < expiration_time
+
+        print("lets go")
