@@ -5,7 +5,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .models import UserProfile,PasswordResetToken
+from .models import PasswordResetToken
 from .serializer import UserSerializer,ResetPasswordEmailSerializer,PasswordResetConfirmSerializer
 
 from django.core.mail import send_mail

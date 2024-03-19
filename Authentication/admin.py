@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import UserProfile,PasswordResetToken
+from .models import PasswordResetToken
 
 # Register your models here.
 
 
 
-admin.site.register(UserProfile)
+
 admin.site.register(PasswordResetToken)

@@ -31,20 +31,13 @@
 #     region=i.find( "span",class_="region")  
 
 
+Grade = [5,4,4] #grades where A is 5 b is 4 and c is 3
+Unit_point = [4,5,6] #unit of the course 
+zipped = list(zip(Grade, Unit_point))  #list of tuples with the A and B lists elements
+print('zipped = ',zipped)
+print('Type of zipped elements is ',type(zipped[1]))
+sum_of_cumm=0
+for a,b in zipped: #llop over the both grades and unit point and multiply them  together
+    sum_of_cumm+=(a*b)
 
-def reverse_sentence(sentence):
-
-    # Split the sentence into a word list
-    word_list = sentence.split()
-
-    print(word_list)
-
-    # Reverse the word list
-    reversed_word_list = list(reversed(word_list))
-
-    print(reversed_word_list)
-
-
-
-
-reverse_sentence("This is for a project in python")
+print(sum_of_cumm)
