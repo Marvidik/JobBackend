@@ -42,6 +42,10 @@ def view_profile(request,username):
 
 # @api_view(["PUT"])
 # def update_profile(request,username):
+
+#     #checks if a user profile with tbhe users id exist
+#     profile=get_object_or_404(UserProfile,user=username)
+
 #     #Gets the data and serializes it 
 #     serializer=ProfileSerializer(data=request.data)
 
