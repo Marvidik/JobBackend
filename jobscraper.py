@@ -38,39 +38,27 @@ subjects he is offering as the value. The aim of the function is to get this dic
 and a list of names of students offering it becomes the value.
 """
 
-#Creating the functon that takes the original dictionary as an argument 
-def invert_dict(original_dict):
 
-    # Created an empty inverted_dict which will store the values of the new dictionary when we are done inveerting it 
-    inverted_dict = {}
+"""
+Catching can really help in file error, for example, when you try to read a file that is not in the system or the directory you 
+specified we will end up getting an error which will end up crashing our programme. But with the try and except blocks we will be able to try 
+that piece of code, if the file we are looking for dosnt exist it will now move to the except block which will now tell the user that the file 
+is not in the system instead of crashing our entire software.
+"""
 
-    # Looped though the keys and values pairs of the dictionary
-    #The .items() function keeps the corresponding key and value pair in a tuple
-    for student, courses in original_dict.items():
-        #Looping through just the courses because it a list of courses 
-        for course in courses:
-            # Checking if the course has been added as a key to our inverted_dict if not it gets added with an empty list as its value 
-            if course not in inverted_dict:
-                inverted_dict[course] = []
-            # We then add the student o the list of the course he/she is offering.
-            inverted_dict[course].append(student)
-    #Returns the inverted_dict
-    return inverted_dict
+#The try Block
+try:
+    #Specifying the files directory
+    file_path = "non_existent_file.txt"
+    #Trying to open the file in the file path and read it 
+    with open(file_path, 'r') as file:
+        content = file.read()
 
-# Sample input dictionary
-original_dict = {
-    'Stud1': ['CS1101', 'CS2402', 'CS2001'],
-    'Stud2': ['CS2402', 'CS2001', 'CS1102'],
-    
-}
-
-# Print original dictionary
-print("Original Dictionary:")
-print(original_dict)
-
-# Inverting the original dictionary
-inverted_dict = invert_dict(original_dict)
-
-# Print inverted dictionary
-print("\nInverted Output:")
-print(inverted_dict)
+    #Printing out the content if the file exist
+    print("File content:", content)
+#Throwing out the file not found error if the file is not found 
+except FileNotFoundError:
+    print("Error: The specified file does not exist.")
+#this is the general exception that catches all other errors.
+except Exception as e:
+    print("An unexpected error occurred:", str(e))

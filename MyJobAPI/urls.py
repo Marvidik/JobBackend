@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 from Authentication import views
 from userprofile import views as profileview
+from job import views as jobviews
 
 urlpatterns = [
 
@@ -14,5 +15,9 @@ urlpatterns = [
     path('create-profile/',profileview.create_profile,name="create-profile"),
     path('profile/<username>/',profileview.view_profile,name="view_profile"),
     # path('profile/<username>/update',profileview.update_profile,name="update-profile"),
+
+
+    path('jobs/',jobviews.view_jobs,name="all_jobs"),
+    path('jobs/search',jobviews.search_jobs,name="search_jobs"),
     
 ]
